@@ -1,22 +1,17 @@
 "use client";
 
-import Button from "@/components/Button";
+import { AddTask } from "@/components/AddTask";
+
 import { Input } from "@/components/Input";
 import Task from "@/components/Task";
 import { TaskCount } from "@/components/TaskCount";
 import { useState } from "react";
-
-const buttons = [
-  { button: "All" },
-  { button: "Active" },
-  { button: "Completed" },
-];
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filterValue, setFilterValue] = useState("All");
-  // const [filteredTasks, setFilteredTasks] = useState("[]");
   const handleTab = (active) => {
     setFilterValue(active);
   };
@@ -28,7 +23,6 @@ export default function Home() {
       ),
     );
   };
-  console.log(tasks);
 
   const handleAddTask = () => {
     if (inputValue.trim() === "") return;
@@ -64,7 +58,6 @@ export default function Home() {
       <h1 className="text-2xl font-bold w-full text-center mb-6 text-gray-800">
         To-Do List
       </h1>
-
       <div className="flex gap-2 mb-6">
         <Input value={inputValue} setValue={setInputValue} />
         <button
@@ -74,18 +67,7 @@ export default function Home() {
           Add
         </button>
       </div>
-
-      <div className="flex gap-2 mb-6">
-        {buttons.map((element, key) => (
-          <Button
-            handleTab={handleTab}
-            filter={filterValue}
-            key={key}
-            button={element.button}
-          />
-        ))}
-      </div>
-
+      <AddTask handleTab={handleTab} filterValue={filterValue} />
       <div className="flex flex-col gap-3 min-h-[150px]">
         {filteredTasks.length === 0 ? (
           <p className="text-center text-gray-400 mt-10">No tasks yet.</p>
@@ -105,12 +87,7 @@ export default function Home() {
           setTasks={setTasks}
         />
       </div>
-
-      {/* Powered by section outside the loop */}
-      <div className="mt-10 pt-4 border-t border-gray-100 flex gap-1 justify-center text-[12px] text-gray-400">
-        <p>Powered by</p>
-        <p className="text-blue-500 font-bold italic">Pinecone Academy</p>
-      </div>
+      <Footer />
     </div>
   );
 }
