@@ -2,6 +2,7 @@
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
+import Task from "@/components/Task";
 import { TaskCount } from "@/components/TaskCount";
 import { useState } from "react";
 
@@ -31,6 +32,7 @@ export default function Home() {
 
   const handleAddTask = () => {
     if (inputValue.trim() === "") return;
+    console.log("input value", inputValue);
 
     const newTask = {
       id: Math.random().toString(),
@@ -89,30 +91,11 @@ export default function Home() {
           <p className="text-center text-gray-400 mt-10">No tasks yet.</p>
         ) : (
           filteredTasks.map((task) => (
-            <div
-              key={task.id}
-              className="flex w-full justify-between items-center bg-gray-50 rounded-lg p-4 border border-gray-100 group hover:shadow-sm transition-all"
-            >
-              <div className="flex gap-3 items-center">
-                <input
-                  type="checkbox"
-                  checked={task.isCompleted}
-                  onChange={() => handleComplete(task.id)}
-                  className="w-5 h-5 cursor-pointer accent-blue-500"
-                />
-                <p
-                  className={`text-[15px] ${task.isCompleted ? "line-through text-gray-400" : "text-gray-700"}`}
-                >
-                  {task.taskName}
-                </p>
-              </div>
-              <button
-                onClick={() => handleDelete(task.id)}
-                className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors"
-              >
-                Delete
-              </button>
-            </div>
+            <Task
+              task={task}
+              handleDelete={handleDelete}
+              handleComplete={handleComplete}
+            />
           ))
         )}
         <TaskCount

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Task = ({ isCompleted, taskName, handcheck }) => {
+export const Tasks = ({ isCompleted, taskName, handcheck }) => {
   return (
     <div className=" flex w-full justify-between bg-slate-100 rounded-md p-4 items-center">
       <div className="flex gap-2 items-center">
